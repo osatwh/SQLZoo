@@ -31,3 +31,18 @@ JOIN Customer cu ON (cu.customerID = so.customerID)
 JOIN SalesOrderDetail sd ON (sd.SalesOrderID = so.SalesOrderID)
 JOIN Product pd ON (pd.productID = sd.productID)
 ORDER BY SubTotal DESC;
+
+ ---10.How many products in ProductCategory 'Cranksets' have been sold to an address in 'London'?
+
+SELECT COUNT(pc.Name) AS COUNT FROM ProductCategory pc
+JOIN Product pd 
+ON  (pd.ProductCategoryID = pc.ProductCategoryID)
+JOIN SalesOrderDetail sod 
+ON (sod.ProductID = pd.ProductID)
+JOIN SalesOrderHeader soh 
+ON (soh.SalesOrderID = sod.SalesOrderID)
+JOIN CustomerAddress cd 
+ON (cd.CustomerID = soh.CustomerID)
+JOIN Address ad 
+ON (ad.AddressID = cd.AddressID)
+WHERE pc.Name = 'Cranksets' AND City = 'London'
